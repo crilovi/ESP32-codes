@@ -1,44 +1,37 @@
-int Ledrojo =8;
-int Ledamarillo =9;
-int Ledverde =10;
-//int tiempoAnterior = 0;
+// Semáforo con ESP32
 
-unsigned long tiempoAnterior = 0;
-int estado = 0;
+
+int ledRojo = 25;
+int ledAmarillo = 26;
+int ledVerde = 27;
 
 void setup() {
-  pinMode(Ledrojo, OUTPUT);
-   pinMode(Ledamarillo, OUTPUT);
-    pinMode(Ledverde, OUTPUT);
-  
-
+  pinMode(ledRojo, OUTPUT);
+  pinMode(ledAmarillo, OUTPUT);
+  pinMode(ledVerde, OUTPUT);
 }
 
 void loop() {
-  unsigned long tiempoActual = millis();
 
-  if(estado==0 && tiempoActual - tiempoAnterior >=5000){
-    digitalWrite(Ledrojo, LOW);
-     digitalWrite(Ledverde, HIGH);
-     estado=1;
-     tiempoAnterior = tiempoActual;
+  digitalWrite(ledRojo, HIGH);
+  delay(3000); 
+  digitalWrite(ledRojo, LOW);
+
+
+  digitalWrite(ledVerde, HIGH);
+  delay(4000); 
+
+
+  for (int i = 0; i < 3; i++) {
+    digitalWrite(ledVerde, LOW);
+    delay(400); 
+    digitalWrite(ledVerde, HIGH);
+    delay(400); 
   }
-  if(estado==1 && tiempoActual - tiempoAnterior >=5000){
-    digitalWrite(Ledverde, LOW);
-     digitalWrite(Ledamarillo, HIGH);
-     estado=2;
-     tiempoAnterior = tiempoActual;
+  digitalWrite(ledVerde, LOW); 
 
-}
-if(estado==2 && tiempoActual - tiempoAnterior >=5000){
-    digitalWrite(Ledrojo, LOW);
-     digitalWrite(Ledverde, HIGH);
-     estado=0;
-     tiempoAnterior = tiempoActual;
-     }
 
-     if(estado==0){
-      digitalWrite(Ledrojo, HIGH);
-      
-     }
+  digitalWrite(ledAmarillo, HIGH);
+  delay(2000);
+  digitalWrite(ledAmarillo, LOW);
 }
